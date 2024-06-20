@@ -1,7 +1,8 @@
 ﻿const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
-const Book = require('./models/Book.js');
+const booksRoutes = require('./routes/books');
+const authRoutes = require('./routes/authentication');
 
 mongoose.connect('mongodb+srv://<username>:<password>@occluster.fqjjj7n.mongodb.net/?retryWrites=true&w=majority&appName=OCCluster',
     { useNewUrlParser: true,
@@ -22,65 +23,8 @@ app.use((req, res, next) => {
 });
 
 
-//Permet à l'utilisateur de s'inscrire sur l'application
-// Authentification Non Requise
-app.post('/api/auth/signup', (req, res, next) => {
-    
-});
 
-//Permet à l'utilisateur de s'authentifier sur l'application
-// Authentification Non Requise
-app.post('/api/auth/login', (req, res, next) => {
-
-});
-
-//Permet d'afficher tous les livres de l'application
-// Authentification Non Requise
-app.get('/api/books', (req, res, next) => {
-
-});
-
-//Permet d'enregister un l'application
-// Authentification Requise
-app.post('/api/books', (req, res, next) => {
-    delete req.body._id;
-    const book = new Book({
-        ...req.body
-    });
-
-    book.save()
-        .then(() => res.status(201).json({ message: 'Livre enregistré !'}))
-        .catch(error => res.status(400).json({ error }));
-});
-
-//Permet d'afficher un livre de l'application par son id
-// Authentification Non Requise
-app.get('/api/books/:id', (req, res, next) => {
-
-});
-
-//Permet de mettre à jour un livre de l'application par son id
-// Authentification Requise
-app.put('/api/books/:id', (req, res, next) => {
-
-});
-
-//Permet de supprimer un livre de l'application par son id
-// Authentification Requise
-app.delete('/api/books/:id', (req, res, next) => {
-
-});
-
-//Permet de retourner les 3 livres les mieux notés de l'application
-// Authentification Non Requise
-app.get('/api/books/bestrating', (req, res, next) => {
-
-});
-
-//Permet à l'utilisateur de noter (une seule fois) un livre de l'application
-// Authentification Requise
-app.post('/api/books/:id/rating', (req, res, next) => {
-
-});
+app.use('/api/auth', authRoutes);
+app.use('/api/books', booksRoutes);
 
 module.exports = app;
