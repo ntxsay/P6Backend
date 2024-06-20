@@ -1,8 +1,7 @@
 ﻿const mongoose = require('mongoose');
-
 const express = require('express');
-
 const app = express();
+const Book = require('./models/Book.js');
 
 mongoose.connect('mongodb+srv://<username>:<password>@occluster.fqjjj7n.mongodb.net/?retryWrites=true&w=majority&appName=OCCluster',
     { useNewUrlParser: true,
@@ -44,7 +43,14 @@ app.get('/api/books', (req, res, next) => {
 //Permet d'enregister un l'application
 // Authentification Requise
 app.post('/api/books', (req, res, next) => {
+    delete req.body._id;
+    const book = new Book({
+        ...req.body
+    });
 
+    book.save()
+        .then(() => res.status(201).json({ message: 'Livre enregistré !'}))
+        .catch(error => res.status(400).json({ error }));
 });
 
 //Permet d'afficher un livre de l'application par son id
