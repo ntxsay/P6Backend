@@ -1,6 +1,14 @@
-﻿const express = require('express');
+﻿const mongoose = require('mongoose');
+
+const express = require('express');
 
 const app = express();
+
+mongoose.connect('mongodb+srv://<username>:<password>@occluster.fqjjj7n.mongodb.net/?retryWrites=true&w=majority&appName=OCCluster',
+    { useNewUrlParser: true,
+        useUnifiedTopology: true })
+    .then(() => console.log('Connexion à MongoDB réussie !'))
+    .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 //Permet de transformer le corps de la requête en objet JSON pour pouvoir l'exploiter (Avoir accès au corps de la requete)
 app.use(express.json());
