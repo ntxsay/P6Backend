@@ -1,17 +1,9 @@
 ﻿const express = require('express');
 const router = express.Router();
-const User = require('../models/User.js');
+const authenticationController = require('../controllers/authentication');
 
-//Permet à l'utilisateur de s'inscrire sur l'application
-// Authentification Non Requise
-router.post('/signup', (req, res, next) => {
+router.post('/signup', authenticationController.signup);
 
-});
-
-//Permet à l'utilisateur de s'authentifier sur l'application
-// Authentification Non Requise
-router.post('/login', (req, res, next) => {
-
-});
+router.post('/login', authenticationController.login);
 
 module.exports = router;

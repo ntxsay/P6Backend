@@ -14,7 +14,7 @@ mongoose.connect('mongodb+srv://<username>:<password>@occluster.fqjjj7n.mongodb.
 app.use(express.json());
 
 //Middleware pour gérer les erreurs CORS
-//Route globale
+//Route globale (sans chemin)
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -24,7 +24,10 @@ app.use((req, res, next) => {
 
 
 
+//Routes des utilisateurs/authentification
 app.use('/api/auth', authRoutes);
+
+//Routes des livres
 app.use('/api/books', booksRoutes);
 
 module.exports = app;
