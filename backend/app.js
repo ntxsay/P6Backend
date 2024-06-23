@@ -2,7 +2,7 @@
 const express = require('express');
 const app = express();
 const booksRoutes = require('./routes/books');
-const authRoutes = require('./routes/authentication');
+const userRoutes = require('./routes/user');
 
 mongoose.connect('mongodb+srv://<username>:<password>@occluster.fqjjj7n.mongodb.net/?retryWrites=true&w=majority&appName=OCCluster',
     { useNewUrlParser: true,
@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 
 
 //Routes des utilisateurs/authentification
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', userRoutes);
 
 //Routes des livres
 app.use('/api/books', booksRoutes);
