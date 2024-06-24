@@ -1,8 +1,11 @@
 ﻿const mongoose = require('mongoose');
 const express = require('express');
-const app = express();
 const booksRoutes = require('./routes/books');
 const userRoutes = require('./routes/user');
+const path = require('path');
+
+const app = express();
+
 
 mongoose.connect('mongodb+srv://<username>:<password>@occluster.fqjjj7n.mongodb.net/?retryWrites=true&w=majority&appName=OCCluster',
     { useNewUrlParser: true,
@@ -22,7 +25,7 @@ app.use((req, res, next) => {
     next();
 });
 
-
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 //Routes des utilisateurs/authentification
 app.use('/api/auth', userRoutes);
