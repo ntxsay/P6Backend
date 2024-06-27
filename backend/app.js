@@ -6,8 +6,9 @@ const path = require('path');
 
 const app = express();
 
+require('dotenv').config()
 
-mongoose.connect('mongodb+srv://<username>:<password>@occluster.fqjjj7n.mongodb.net/?retryWrites=true&w=majority&appName=OCCluster',
+mongoose.connect(process.env.MONGODB_URI,
     { useNewUrlParser: true,
         useUnifiedTopology: true })
     .then(() => console.log('Connexion à MongoDB réussie !'))

@@ -18,8 +18,13 @@ module.exports = (req, res, next) => {
         if (err)             
             return res.status(500).json({ error: err.message });
 
-        if (!req.file)             
+        if (!req.file)  {
+            if (req.params.id) {
+                next();
+                return;
+            }
             return res.status(400).json({ error: 'Vous devez sélectionner un fichier' });
+        }           
         
         const extension = MIME_TYPES[req.file.mimetype];
         if (!extension)
@@ -39,6 +44,9 @@ module.exports = (req, res, next) => {
 
         try {
             await sharp(req.file.buffer)
+                .resize(600, 600, {
+                    fit: 'inside',
+                })
                 .webp({ quality: 20 })
                 .toFile(path.join(destinationDirectory, newFileName));
 

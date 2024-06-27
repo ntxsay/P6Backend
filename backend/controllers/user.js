@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User.js');
 const validator = require('email-validator');
 const passwordValidator = require('../utils/passwordValidation')
+require('dotenv').config()
 
 /**
  * Crée un nouvel utilisateur au sein de l'application
@@ -60,7 +61,7 @@ exports.login = (req, res, next) => {
                         userId: user._id,
                         token: jwt.sign(
                             { userId: user._id },
-                            'RANDOM_TOKEN_SECRET',
+                            process.env.JWT_SECRET_KEY,
                             { expiresIn: '24h' }
                         )
                     });
